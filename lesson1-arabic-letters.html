@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mission 1 — Arabic Letters</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background: #f7f4ec;
+    color: #263238;
+    overflow: hidden;
+}
+
+/* =========================
+   SLIDE SYSTEM
+========================= */
+
+.lesson {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    inset: 0;
+    padding: 50px 7%;
+    overflow: hidden;
+}
+
+.slide.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* =========================
+   BACKGROUND DECORATION
+========================= */
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: .45;
+    filter: blur(2px);
+}
+
+.blob.one {
+    width: 260px;
+    height: 260px;
+    background: #dceee7;
+    top: -80px;
+    left: -70px;
+}
+
+.blob.two {
+    width: 220px;
+    height: 220px;
+    background: #f5dfb7;
+    bottom: -80px;
+    right: -50px;
+}
+
+.star {
+    position: absolute;
+    font-size: 28px;
+    opacity: .6;
+}
+
+.star.s1 { top: 15%; left: 8%; }
+.star.s2 { top: 20%; right: 12%; }
+.star.s3 { bottom: 17%; left: 15%; }
+.star.s4 { bottom: 12%; right: 17%; }
+
+/* =========================
+   TEXT
+========================= */
+
+.kicker {
+    font-size: 18px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: .65;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: clamp(42px, 6vw, 78px);
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: clamp(32px, 4vw, 55px);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 22px;
+    text-align: center;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.highlight {
+    font-weight: bold;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.primary-btn {
+    margin-top: 35px;
+    padding: 17px 35px;
+    border-radius: 50px;
+    background: #294c45;
+    color: white;
+    font-size: 19px;
+    box-shadow: 0 8px 0 #18362f;
+    transition: .15s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+}
+
+.primary-btn:active {
+    transform: translateY(5px);
+    box-shadow: 0 3px 0 #18362f;
+}
+
+/* =========================
+   ARABIC LETTER
+========================= */
+
+.letter {
+    font-family: "Arial", "Tahoma", sans-serif;
+    font-size: 170px;
+    direction: rtl;
+    line-height: 1;
+}
+
+.letter-name {
+    font-size: 30px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.sound {
+    margin-top: 8px;
+    font-size: 18px;
+    opacity: .7;
+}
+
+/* =========================
+   LETTER CARD
+========================= */
+
+.letter-card {
+    background: white;
+    width: 230px;
+    min-height: 270px;
+    border-radius: 30px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,.08);
+    transition: .25s;
+}
+
+.letter-card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+}
+
+.letters-row {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* =========================
+   MEMORY TRICK
+========================= */
+
+.memory-box {
+    width: min(850px, 90vw);
+    background: white;
+    border-radius: 35px;
+    padding: 35px;
+    box-shadow: 0 15px 45px rgba(0,0,0,.08);
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+
+.memory-letter {
+    font-size: 150px;
+    min-width: 180px;
+    text-align: center;
+    direction: rtl;
+}
+
+.memory-visual {
+    flex: 1;
+}
+
+.memory-visual .shape {
+    font-size: 70px;
+    margin-bottom: 15px;
+}
+
+.memory-visual h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.memory-visual p {
+    font-size: 19px;
+    line-height: 1.5;
+}
+
+/* =========================
+   DOT GAME
+========================= */
+
+.dot-display {
+    background: white;
+    padding: 30px 55px;
+    border-radius: 35px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.08);
+    margin-bottom: 25px;
+}
+
+.dot-display .big-letter {
+    font-size: 150px;
+    direction: rtl;
+}
+
+.options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.option {
+    width: 130px;
+    height: 120px;
+    border-radius: 25px;
+    background: white;
+    font-size: 65px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    transition: .2s;
+    direction: rtl;
+}
+
+.option:hover {
+    transform: scale(1.06);
+}
+
+.option.correct {
+    animation: correct .5s;
+}
+
+.option.wrong {
+    animation: shake .35s;
+}
+
+.feedback {
+    min-height: 35px;
+    margin-top: 20px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+/* =========================
+   GAME
+========================= */
+
+.game-area {
+    width: min(950px, 90vw);
+    background: white;
+    border-radius: 35px;
+    padding: 35px;
+    box-shadow: 0 15px 45px rgba(0,0,0,.08);
+    text-align: center;
+}
+
+.target {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.letter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    max-width: 700px;
+    margin: auto;
+}
+
+.grid-letter {
+    height: 120px;
+    background: #f7f4ec;
+    border-radius: 25px;
+    font-size: 70px;
+    direction: rtl;
+    transition: .2s;
+}
+
+.grid-letter:hover {
+    transform: scale(1.05);
+}
+
+.grid-letter.found {
+    transform: scale(1.12);
+    opacity: .4;
+}
+
+/* =========================
+   MYSTERY BOX
+========================= */
+
+.mystery-box {
+    width: 230px;
+    height: 210px;
+    background: #294c45;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 95px;
+    color: white;
+    box-shadow: 0 15px 0 #18362f;
+    cursor: pointer;
+    transition: .2s;
+    margin: 20px;
+}
+
+.mystery-box:hover {
+    transform: translateY(-8px) rotate(2deg);
+}
+
+.mystery-result {
+    font-size: 90px;
+    direction: rtl;
+    min-height: 110px;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 7px;
+    background: rgba(0,0,0,.1);
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #294c45;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.nav {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+}
+
+.nav button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    font-size: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.12);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+.fade {
+    animation: fade .7s ease;
+}
+
+.pop {
+    animation: pop .6s ease;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pop {
+    0% { transform: scale(.7); opacity: 0; }
+    70% { transform: scale(1.08); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes correct {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 700px) {
+
+    .slide {
+        padding: 35px 5%;
+    }
+
+    .memory-box {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .memory-letter {
+        font-size: 110px;
+    }
+
+    .letter-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .letter-card {
+        width: 150px;
+        min-height: 190px;
+    }
+
+    .letter {
+        font-size: 110px;
+    }
+
+    .letter-name {
+        font-size: 22px;
+    }
+}
+/* =========================
+   TEACHER NAME
+========================= */
+
+.teacher-name {
+    position: absolute;
+    left: 35px;
+    bottom: 28px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    opacity: 0.65;
+    z-index: 20;
+}
+
+/* First & Last Slide */
+
+.slide:first-child .teacher-name,
+.slide:last-child .teacher-name {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 45px;
+    font-size: 19px;
+    opacity: 0.8;
+}
+
+/* =================================================
+   ✨ ENHANCED VISUAL STYLE
+================================================= */
+
+/* ---------- BEAUTIFUL BACKGROUNDS ---------- */
+
+.slide {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,.6) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 80%, rgba(255,255,255,.7) 0 1.5px, transparent 3px),
+        linear-gradient(135deg, #f8f5ec, #edf5f0);
+
+    transition:
+        background 1s ease,
+        transform .8s ease,
+        opacity .8s ease;
+}
+
+
+/* ---------- DIFFERENT SLIDE MOODS ---------- */
+
+.slide:nth-child(3n+1) {
+    background:
+        radial-gradient(circle at 85% 15%, rgba(255,255,255,.8), transparent 30%),
+        linear-gradient(135deg, #f8f3e7, #e9f2ee);
+}
+
+.slide:nth-child(3n+2) {
+    background:
+        radial-gradient(circle at 10% 85%, rgba(255,255,255,.7), transparent 30%),
+        linear-gradient(135deg, #eef5f3, #f7f0df);
+}
+
+.slide:nth-child(3n) {
+    background:
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.7), transparent 30%),
+        linear-gradient(135deg, #f4efe4, #e7f0ee);
+}
+
+
+/* =================================================
+   🌟 SLIDE TRANSITION
+================================================= */
+
+.slide.active {
+    animation: slideEntrance .75s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes slideEntrance {
+
+    0% {
+        opacity: 0;
+        transform: translateX(45px) scale(.98);
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+
+/* =================================================
+   ✨ CONTENT ANIMATION
+================================================= */
+
+.slide.active h1,
+.slide.active h2,
+.slide.active .subtitle,
+.slide.active .kicker {
+    animation: textReveal .7s ease both;
+}
+
+@keyframes textReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =================================================
+   🔤 LETTER ANIMATION
+================================================= */
+
+.slide.active .letter {
+    animation:
+        letterAppear .7s cubic-bezier(.17,.67,.35,1.3),
+        letterFloat 4s ease-in-out infinite .8s;
+}
+
+@keyframes letterAppear {
+
+    0% {
+        opacity: 0;
+        transform: scale(.4) rotate(-8deg);
+    }
+
+    70% {
+        transform: scale(1.12) rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes letterFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+/* =================================================
+   💎 CARD GLOW
+================================================= */
+
+.letter-card,
+.memory-box,
+.game-area,
+.dot-display {
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.letter-card:hover,
+.memory-box:hover,
+.game-area:hover,
+.dot-display:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 55px rgba(41,76,69,.14),
+        0 0 0 2px rgba(41,76,69,.04);
+}
+
+
+/* =================================================
+   ⭐ FLOATING STARS
+================================================= */
+
+.star {
+
+    animation:
+        starFloat 4s ease-in-out infinite;
+
+}
+
+.star.s2 {
+    animation-delay: 1s;
+}
+
+.star.s3 {
+    animation-delay: 2s;
+}
+
+.star.s4 {
+    animation-delay: 3s;
+}
+
+@keyframes starFloat {
+
+    0%,100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: .45;
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(15deg);
+        opacity: .85;
+    }
+}
+
+
+/* =================================================
+   🎁 MYSTERY BOX
+================================================= */
+
+.mystery-box {
+
+    animation:
+        mysteryFloat 3s ease-in-out infinite;
+
+}
+
+@keyframes mysteryFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.mystery-box:hover {
+
+    animation: none;
+
+    transform:
+        translateY(-10px)
+        rotate(3deg)
+        scale(1.05);
+
+}
+
+
+/* =================================================
+   🎯 GAME BUTTONS
+================================================= */
+
+.option {
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+.option:hover {
+
+    transform:
+        translateY(-7px)
+        scale(1.04);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.12);
+
+}
+
+
+/* =================================================
+   🏆 CORRECT ANSWER
+================================================= */
+
+.option.correct {
+
+    animation:
+        correctAnswer .7s cubic-bezier(.17,.67,.35,1.4);
+
+}
+
+@keyframes correctAnswer {
+
+    0% {
+        transform: scale(1);
+    }
+
+    35% {
+        transform: scale(1.2) rotate(-3deg);
+    }
+
+    65% {
+        transform: scale(.95) rotate(3deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =================================================
+   🌟 PRIMARY BUTTON
+================================================= */
+
+.primary-btn {
+
+    position: relative;
+    overflow: hidden;
+
+}
+
+.primary-btn::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 60%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+}
+
+.primary-btn:hover::after {
+
+    animation:
+        buttonShine .8s ease;
+
+}
+
+@keyframes buttonShine {
+
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 140%;
+    }
+
+}
+
+
+/* =================================================
+   🌙 PROGRESS BAR
+================================================= */
+
+.progress {
+
+    height: 8px;
+
+    background:
+        rgba(255,255,255,.65);
+
+    backdrop-filter:
+        blur(10px);
+
+    box-shadow:
+        0 3px 15px rgba(0,0,0,.08);
+
+}
+
+.progress-bar {
+
+    background:
+        linear-gradient(
+            90deg,
+            #294c45,
+            #6f9d91,
+            #d4a95c
+        );
+
+    box-shadow:
+        0 0 10px rgba(111,157,145,.4);
+
+}
+
+
+/* =================================================
+   🌟 MISSION COMPLETE
+================================================= */
+
+.slide:last-child h1 {
+
+    animation:
+        finalTitle 1s cubic-bezier(.17,.67,.35,1.3);
+
+}
+
+@keyframes finalTitle {
+
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+
+    70% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="lesson">
+
+<!-- =========================
+     SLIDE 1
+========================= -->
+
+<section class="slide active">
+
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+
+    <div class="star s1">✦</div>
+    <div class="star s2">✧</div>
+    <div class="star s3">✦</div>
+    <div class="star s4">✧</div>
+
+    <div class="kicker fade">MISSION 01</div>
+
+    <h1 class="fade">
+        Take your first step<br>
+         toward reading the Qur'an 🌙
+    </h1>
+
+    <p class="subtitle fade">
+        Today, we're going to meet your first
+        <strong>Arabic letters!</strong>
+    </p>
+
+    <button class="primary-btn" onclick="nextSlide()">
+        Let's Begin ✨
+    </button>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 2
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">WARM-UP</div>
+
+    <h2>Can you spot the Arabic letter? 👀</h2>
+
+    <div class="options">
+        <button class="option" onclick="warmUp(this,false)">★</button>
+        <button class="option" onclick="warmUp(this,true)">ا</button>
+        <button class="option" onclick="warmUp(this,false)">○</button>
+    </div>
+
+    <div id="warmFeedback" class="feedback"></div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 3
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">DISCOVER</div>
+
+    <h2>Meet the Arabic Letters! 🌟</h2>
+
+    <p class="subtitle">
+        Arabic has <strong>28 letters</strong>.
+        Don't worry — we'll learn them step by step!
+    </p>
+
+    <div style="font-size:55px; margin-top:35px; direction:rtl; line-height:1.8;">
+        ا ب ت ث &nbsp; ج ح خ &nbsp; د ذ ر ز
+    </div>
+
+    <p style="margin-top:20px; opacity:.65;">
+        Today, we're starting with just four.
+    </p>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 4
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">LETTER 01</div>
+
+    <h2>Meet Alif!</h2>
+
+    <div class="letter-card pop">
+
+        <div class="letter">ا</div>
+
+        <div class="letter-name">Alif</div>
+
+        <div class="sound">
+            Listen → Repeat
+        </div>
+
+    </div>
+
+    <p class="subtitle" style="margin-top:25px;">
+        👂 Listen carefully.<br>
+        Now... <strong>Your turn!</strong>
+    </p>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 5
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">MEMORY TRICK</div>
+
+    <h2>How can you remember Alif? 🧠</h2>
+
+    <div class="memory-box">
+
+        <div class="memory-letter">ا</div>
+
+        <div class="memory-visual">
+
+            <div class="shape">🕯️</div>
+
+            <h3>Alif is tall!</h3>
+
+            <p>
+                Think of a tall candle.
+                <br>
+                <strong>Alif = tall and straight.</strong>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 6
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">LETTER 02</div>
+
+    <h2>Meet Baa!</h2>
+
+    <div class="letter-card pop">
+
+        <div class="letter">ب</div>
+
+        <div class="letter-name">Baa</div>
+
+        <div class="sound">
+            One dot underneath
+        </div>
+
+    </div>
+
+    <p class="subtitle" style="margin-top:25px;">
+        Say it with me:
+        <strong>Baa!</strong> 🗣️
+    </p>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 7
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">MEMORY TRICK</div>
+
+    <h2>Baa looks like a little boat! 🚤</h2>
+
+    <div class="memory-box">
+
+        <div class="memory-letter">ب</div>
+
+        <div class="memory-visual">
+
+            <div class="shape">🚤</div>
+
+            <h3>Look at the dot!</h3>
+
+            <p>
+                The body looks like a little boat
+                and there is <strong>one dot underneath.</strong>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 8
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">LETTER 03</div>
+
+    <h2>Meet Taa!</h2>
+
+    <div class="letter-card pop">
+
+        <div class="letter">ت</div>
+
+        <div class="letter-name">Taa</div>
+
+        <div class="sound">
+            Two dots on top
+        </div>
+
+    </div>
+
+    <p class="subtitle" style="margin-top:25px;">
+        Can you say:
+        <strong>Taa!</strong> 🎤
+    </p>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 9
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">MEMORY TRICK</div>
+
+    <h2>Same boat... different dots! 🚤</h2>
+
+    <div class="memory-box">
+
+        <div class="memory-letter">ت</div>
+
+        <div class="memory-visual">
+
+            <div class="shape">👀</div>
+
+            <h3>Two dots on top!</h3>
+
+            <p>
+                Remember:
+                <br>
+                <strong>Baa → 1 dot below</strong>
+                <br>
+                <strong>Taa → 2 dots above</strong>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 10
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">LETTER 04</div>
+
+    <h2>Meet Thaa!</h2>
+
+    <div class="letter-card pop">
+
+        <div class="letter">ث</div>
+
+        <div class="letter-name">Thaa</div>
+
+        <div class="sound">
+            Three dots on top
+        </div>
+
+    </div>
+
+    <p class="subtitle" style="margin-top:25px;">
+        Three dots!
+        <strong>Thaa!</strong> 🔺
+    </p>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 11
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">THE BIG IDEA</div>
+
+    <h2>One shape... three letters! 🤯</h2>
+
+    <div class="letters-row">
+
+        <div class="letter-card">
+            <div class="letter">ب</div>
+            <div class="letter-name">Baa</div>
+            <div>•</div>
+            <small>1 below</small>
+        </div>
+
+        <div class="letter-card">
+            <div class="letter">ت</div>
+            <div class="letter-name">Taa</div>
+            <div>••</div>
+            <small>2 above</small>
+        </div>
+
+        <div class="letter-card">
+            <div class="letter">ث</div>
+            <div class="letter-name">Thaa</div>
+            <div>•••</div>
+            <small>3 above</small>
+        </div>
+
+    </div>
+
+    <p class="subtitle" style="margin-top:30px;">
+        The dots help us tell the letters apart!
+    </p>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 12
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">GAME 01</div>
+
+    <h2>🎯 Dot Detective</h2>
+
+    <p class="subtitle">
+        Which letter has <strong>two dots on top?</strong>
+    </p>
+
+    <div class="options" style="margin-top:30px;">
+
+        <button class="option" onclick="dotGame(this,'ب')">ب</button>
+
+        <button class="option" onclick="dotGame(this,'ت')">ت</button>
+
+        <button class="option" onclick="dotGame(this,'ث')">ث</button>
+
+    </div>
+
+    <div id="dotFeedback" class="feedback"></div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 13
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">GAME 02</div>
+
+    <h2>🕵️ Letter Detective</h2>
+
+    <p class="subtitle">
+        Find <strong>Baa</strong>!
+    </p>
+
+    <div class="game-area" style="margin-top:25px;">
+
+        <div class="letter-grid">
+
+            <button class="grid-letter" onclick="findLetter(this,'ب')">ب</button>
+            <button class="grid-letter" onclick="findLetter(this,'ت')">ت</button>
+            <button class="grid-letter" onclick="findLetter(this,'ث')">ث</button>
+            <button class="grid-letter" onclick="findLetter(this,'ا')">ا</button>
+
+            <button class="grid-letter" onclick="findLetter(this,'ث')">ث</button>
+            <button class="grid-letter" onclick="findLetter(this,'ب')">ب</button>
+            <button class="grid-letter" onclick="findLetter(this,'ت')">ت</button>
+            <button class="grid-letter" onclick="findLetter(this,'ا')">ا</button>
+
+        </div>
+
+        <div id="findFeedback" class="feedback"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FIND TAA
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">GAME 03</div>
+
+    <h2>🕵️ Letter Detective</h2>
+
+    <p class="subtitle">
+        Find <strong>Taa!</strong>
+        <br>
+        <small>ت</small>
+    </p>
+
+    <div class="game-area" style="margin-top:25px;">
+
+        <div class="letter-grid">
+
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ب</button>
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ت</button>
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ث</button>
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ا</button>
+
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ث</button>
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ت</button>
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ا</button>
+            <button class="grid-letter" onclick="findTarget(this,'ت','taaFeedback')">ب</button>
+
+        </div>
+
+        <div id="taaFeedback" class="feedback"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FIND THAA
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">GAME 04</div>
+
+    <h2>🕵️ Letter Detective</h2>
+
+    <p class="subtitle">
+        Find <strong>Thaa!</strong>
+        <br>
+        <small>ث</small>
+    </p>
+
+    <div class="game-area" style="margin-top:25px;">
+
+        <div class="letter-grid">
+
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ت</button>
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ث</button>
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ب</button>
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ا</button>
+
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ب</button>
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ا</button>
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ث</button>
+            <button class="grid-letter" onclick="findTarget(this,'ث','thaaFeedback')">ت</button>
+
+        </div>
+
+        <div id="thaaFeedback" class="feedback"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FIND ALIF
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">GAME 05</div>
+
+    <h2>🕵️ Letter Detective</h2>
+
+    <p class="subtitle">
+        Find <strong>Alif!</strong>
+        <br>
+        <small>ا</small>
+    </p>
+
+    <div class="game-area" style="margin-top:25px;">
+
+        <div class="letter-grid">
+
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ب</button>
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ا</button>
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ث</button>
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ت</button>
+
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ت</button>
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ث</button>
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ا</button>
+            <button class="grid-letter" onclick="findTarget(this,'ا','alifFeedback')">ب</button>
+
+        </div>
+
+        <div id="alifFeedback" class="feedback"></div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     SLIDE 14
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">GAME 06</div>
+
+    <h2>🎁 Mystery Letter</h2>
+
+    <p class="subtitle">
+        A secret letter is hiding inside...
+        <br>
+        Click the box!
+    </p>
+
+    <div class="mystery-box" onclick="openMystery()">
+        🎁
+    </div>
+
+    <div id="mysteryResult" class="mystery-result"></div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 15
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">FINAL CHALLENGE</div>
+
+    <h2>🚀 Can You Recognize Them?</h2>
+
+    <p class="subtitle">
+        Choose the correct letter:
+    </p>
+
+    <div class="dot-display">
+        <div class="big-letter" id="challengeLetter">ث</div>
+    </div>
+
+    <div class="options">
+
+        <button class="option" onclick="challenge(this,'ب')">ب</button>
+        <button class="option" onclick="challenge(this,'ث')">ث</button>
+        <button class="option" onclick="challenge(this,'ت')">ت</button>
+
+    </div>
+
+    <div id="challengeFeedback" class="feedback"></div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 16
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">MISSION COMPLETE</div>
+
+    <h1>🎉 You Did It!</h1>
+
+    <p class="subtitle">
+        Today you met your first four Arabic letters:
+    </p>
+
+    <div style="
+        font-size:85px;
+        direction:rtl;
+        margin:30px 0;
+        letter-spacing:20px;
+    ">
+        ا ب ت ث
+    </div>
+
+    <p class="subtitle">
+        ⭐ You are one step closer to reading the Qur'an!
+    </p>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 17
+========================= -->
+
+<section class="slide">
+
+    <div class="kicker">NEXT MISSION 🔮</div>
+
+    <h1>Hmm... What's next?</h1>
+
+    <p class="subtitle">
+        You learned:
+    </p>
+
+    <div style="
+        font-size:75px;
+        direction:rtl;
+        margin:25px;
+    ">
+        ا ب ت ث
+    </div>
+
+    <p class="subtitle">
+        But there are more letters waiting for you...
+    </p>
+
+    <div style="
+        font-size:80px;
+        direction:rtl;
+        margin-top:20px;
+        opacity:.8;
+    ">
+        ج ح خ
+    </div>
+
+    <p style="
+        margin-top:20px;
+        font-size:20px;
+        font-weight:bold;
+    ">
+        See you in Mission 2! 🚀
+    </p>
+
+</section>
+
+
+</div>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="nav">
+
+    <button onclick="prevSlide()">‹</button>
+    <button onclick="nextSlide()">›</button>
+
+</div>
+
+
+<script>
+
+let currentSlide = 0;
+
+const slides = document.querySelectorAll(".slide");
+const progressBar = document.getElementById("progressBar");
+
+function showSlide(index) {
+
+    if(index < 0) index = 0;
+
+    if(index >= slides.length)
+        index = slides.length - 1;
+
+    slides.forEach(slide => {
+        slide.classList.remove("active");
+    });
+
+    slides[index].classList.add("active");
+
+    currentSlide = index;
+
+    let progress = ((index + 1) / slides.length) * 100;
+
+    progressBar.style.width = progress + "%";
+}
+
+function nextSlide() {
+
+    if(currentSlide < slides.length - 1) {
+        showSlide(currentSlide + 1);
+    }
+
+}
+
+function prevSlide() {
+
+    if(currentSlide > 0) {
+        showSlide(currentSlide - 1);
+    }
+
+}
+
+
+/* =========================
+   WARM UP
+========================= */
+
+function warmUp(button, correct) {
+
+    const feedback = document.getElementById("warmFeedback");
+
+    if(correct) {
+
+        button.classList.add("correct");
+
+        feedback.innerHTML =
+            "🎉 Great! You found the Arabic letter!";
+
+    } else {
+
+        button.classList.add("wrong");
+
+        feedback.innerHTML =
+            "Almost! 👀 Try again!";
+
+    }
+
+}
+
+
+/* =========================
+   DOT GAME
+========================= */
+
+function dotGame(button, letter) {
+
+    const feedback = document.getElementById("dotFeedback");
+
+    if(letter === "ت") {
+
+        button.classList.add("correct");
+
+        feedback.innerHTML =
+            "⭐ Amazing! Taa has TWO dots on top!";
+
+    } else {
+
+        button.classList.add("wrong");
+
+        feedback.innerHTML =
+            "Not this one! Count the dots and try again 👀";
+
+    }
+
+}
+
+
+/* =========================
+   FIND LETTER GAME
+========================= */
+
+let found = 0;
+
+function findLetter(button, letter) {
+
+    const feedback = document.getElementById("findFeedback");
+
+    if(letter === "ب" && !button.classList.contains("found")) {
+
+        button.classList.add("found");
+
+        found++;
+
+        if(found === 2) {
+
+            feedback.innerHTML =
+                "🎉 You found ALL the Baa letters!";
+
+        } else {
+
+            feedback.innerHTML =
+                "✨ Great! There's one more Baa...";
+
+        }
+
+    } else if(letter !== "ب") {
+
+        button.classList.add("wrong");
+
+        feedback.innerHTML =
+            "Not Baa! Keep looking 🕵️";
+
+    }
+
+}
+
+/* =========================
+   FIND TARGET LETTER
+========================= */
+
+const foundTargets = {};
+
+function findTarget(button, target, feedbackId) {
+
+    const feedback = document.getElementById(feedbackId);
+
+    if (!foundTargets[feedbackId]) {
+        foundTargets[feedbackId] = 0;
+    }
+
+    if (button.textContent.trim() === target) {
+
+        if (button.classList.contains("found")) {
+            return;
+        }
+
+        button.classList.add("found");
+
+        foundTargets[feedbackId]++;
+
+        if (foundTargets[feedbackId] === 2) {
+
+            feedback.innerHTML =
+                "🎉 Amazing! You found all the " + target + " letters!";
+
+        } else {
+
+            feedback.innerHTML =
+                "✨ Great! There's one more...";
+
+        }
+
+    } else {
+
+        button.classList.add("wrong");
+
+        feedback.innerHTML =
+            "Almost! 👀 Look carefully and try again!";
+
+        setTimeout(() => {
+            button.classList.remove("wrong");
+        }, 400);
+
+    }
+
+}
+
+/* =========================
+   MYSTERY BOX
+========================= */
+
+const mysteryLetters = ["ب","ت","ث","ا"];
+
+function openMystery() {
+
+    const random =
+        mysteryLetters[
+            Math.floor(Math.random() * mysteryLetters.length)
+        ];
+
+    const result =
+        document.getElementById("mysteryResult");
+
+    result.innerHTML = random;
+
+    result.classList.remove("pop");
+
+    void result.offsetWidth;
+
+    result.classList.add("pop");
+
+}
+
+
+/* =========================
+   FINAL CHALLENGE
+========================= */
+
+function challenge(button, letter) {
+
+    const feedback =
+        document.getElementById("challengeFeedback");
+
+    if(letter === "ث") {
+
+        button.classList.add("correct");
+
+        feedback.innerHTML =
+            "🏆 Perfect! You recognized Thaa!";
+
+    } else {
+
+        button.classList.add("wrong");
+
+        feedback.innerHTML =
+            "Almost! Look at the three dots 👀";
+
+    }
+
+}
+
+
+/* =========================
+   KEYBOARD NAVIGATION
+========================= */
+
+document.addEventListener("keydown", function(event) {
+
+    if(event.key === "ArrowRight") {
+
+        nextSlide();
+
+    }
+
+    if(event.key === "ArrowLeft") {
+
+        prevSlide();
+
+    }
+
+});
+
+
+/* INITIALIZE */
+
+showSlide(0);
+/* ADD TEACHER NAME */
+
+document.querySelectorAll(".slide").forEach(slide => {
+
+    const name = document.createElement("div");
+
+    name.className = "teacher-name";
+
+    name.textContent = "Miss: Nourhan Ali";
+
+    slide.appendChild(name);
+
+});
+
+</script>
+
+</body>
+</html>
