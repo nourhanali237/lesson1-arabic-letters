@@ -491,6 +491,7 @@ button {
         font-size: 22px;
     }
 }
+
 /* =========================
    TEACHER NAME
 ========================= */
@@ -922,6 +923,155 @@ button {
 
 }
 
+/* =========================
+   SLIDE 3 - NEW STYLES
+========================= */
+
+.warmup-label {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: .65;
+    margin-bottom: 15px;
+}
+
+.new-slide-title {
+    font-size: clamp(42px, 6vw, 56px);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.new-slide-emoji {
+    font-size: 50px;
+}
+
+.new-options {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.new-option-btn {
+    width: 140px;
+    height: 140px;
+    background: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 56px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-option-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.new-option-btn:active {
+    transform: translateY(-2px);
+}
+
+.new-option-btn.correct {
+    background: #d4edda;
+    color: #155724;
+    animation: celebrate 0.6s ease;
+}
+
+.new-option-btn.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+@keyframes celebrate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* البالونات */
+.balloon {
+    position: fixed;
+    width: 30px;
+    height: 35px;
+    border-radius: 50% 50% 50% 0;
+    pointer-events: none;
+    animation: float-up 2s ease-in forwards;
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.2);
+    top: 35px;
+    left: 15px;
+}
+
+@keyframes float-up {
+    0% {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-500px) translateX(var(--tx));
+    }
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    animation: fall 2s ease-out forwards;
+}
+
+@keyframes fall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(300px) translateX(var(--tx)) rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .new-slide-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .new-option-btn {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+    }
+
+    .new-options {
+        gap: 15px;
+    }
+}
+
 </style>
 </head>
 
@@ -984,7 +1134,30 @@ button {
 
 
 <!-- =========================
-     SLIDE 3
+     SLIDE 3 - NEW WARM UP
+========================= -->
+
+<section class="slide">
+
+    <div class="warmup-label">WARM-UP</div>
+    
+    <div class="new-slide-title">
+    Find the Araic letter!
+        <span class="new-slide-emoji">👀</span>
+    </div>
+
+    <div class="new-options">
+        <button class="new-option-btn" onclick="newWarmUpCheck(this, true)">ب</button>
+        <button class="new-option-btn" onclick="newWarmUpCheck(this, false)">△</button>
+        <button class="new-option-btn" onclick="newWarmUpCheck(this, true)">ص</button>
+        <button class="new-option-btn" onclick="newWarmUpCheck(this, false)">■</button>
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SLIDE 4 (OLD SLIDE 3)
 ========================= -->
 
 <section class="slide">
@@ -1010,7 +1183,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 4
+     SLIDE 5 (OLD SLIDE 4)
 ========================= -->
 
 <section class="slide">
@@ -1040,7 +1213,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 5
+     SLIDE 6 (OLD SLIDE 5)
 ========================= -->
 
 <section class="slide">
@@ -1073,7 +1246,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 6
+     SLIDE 7 (OLD SLIDE 6)
 ========================= -->
 
 <section class="slide">
@@ -1103,7 +1276,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 7
+     SLIDE 8 (OLD SLIDE 7)
 ========================= -->
 
 <section class="slide">
@@ -1135,7 +1308,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 8
+     SLIDE 9 (OLD SLIDE 8)
 ========================= -->
 
 <section class="slide">
@@ -1165,7 +1338,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 9
+     SLIDE 10 (OLD SLIDE 9)
 ========================= -->
 
 <section class="slide">
@@ -1200,7 +1373,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 10
+     SLIDE 11 (OLD SLIDE 10)
 ========================= -->
 
 <section class="slide">
@@ -1230,7 +1403,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 11
+     SLIDE 12 (OLD SLIDE 11)
 ========================= -->
 
 <section class="slide">
@@ -1272,7 +1445,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 12
+     SLIDE 13 (OLD SLIDE 12)
 ========================= -->
 
 <section class="slide">
@@ -1301,7 +1474,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 13
+     SLIDE 14 (OLD SLIDE 13)
 ========================= -->
 
 <section class="slide">
@@ -1454,7 +1627,7 @@ button {
 </section>
 
 <!-- =========================
-     SLIDE 14
+     SLIDE 15
 ========================= -->
 
 <section class="slide">
@@ -1479,7 +1652,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 15
+     SLIDE 16
 ========================= -->
 
 <section class="slide">
@@ -1510,7 +1683,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 16
+     SLIDE 17
 ========================= -->
 
 <section class="slide">
@@ -1540,7 +1713,7 @@ button {
 
 
 <!-- =========================
-     SLIDE 17
+     SLIDE 18
 ========================= -->
 
 <section class="slide">
@@ -1672,6 +1845,94 @@ function warmUp(button, correct) {
 
     }
 
+}
+
+
+/* =========================
+   NEW WARM UP SLIDE 3
+========================= */
+
+const balloonColors = ['#FF6B6B', '#FFA500', '#FFD93D', '#6BCB77', '#4D96FF', '#B28FFF'];
+
+function createBalloon() {
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
+    
+    const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+    balloon.style.backgroundColor = color;
+    balloon.style.transform = `rotate(${Math.random() * 360}deg)`;
+    balloon.style.left = Math.random() * window.innerWidth + 'px';
+    balloon.style.top = window.innerHeight + 'px';
+    balloon.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+    
+    document.body.appendChild(balloon);
+    
+    setTimeout(() => balloon.remove(), 2000);
+}
+
+function createConfetti() {
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        const colors = ['#FF6B6B', '#FFA500', '#FFD93D', '#6BCB77', '#4D96FF', '#B28FFF'];
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '0px';
+        confetti.style.setProperty('--tx', (Math.random() - 0.5) * 300 + 'px');
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 2000);
+    }
+}
+
+function playSound() {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800;
+    oscillator.type = 'sine';
+    
+    gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+}
+
+function newWarmUpCheck(button, isCorrect) {
+    if (isCorrect) {
+        button.classList.add('correct');
+        playSound();
+        
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                createBalloon();
+            }, i * 100);
+        }
+        
+        createConfetti();
+        
+        setTimeout(() => {
+            resetNewWarmUpButtons();
+        }, 800);
+    } else {
+        button.classList.add('incorrect');
+        setTimeout(() => {
+            button.classList.remove('incorrect');
+        }, 500);
+    }
+}
+
+function resetNewWarmUpButtons() {
+    document.querySelectorAll('.new-option-btn').forEach(btn => {
+        btn.classList.remove('correct', 'incorrect');
+    });
 }
 
 
@@ -1871,6 +2132,7 @@ document.addEventListener("keydown", function(event) {
 /* INITIALIZE */
 
 showSlide(0);
+
 /* ADD TEACHER NAME */
 
 document.querySelectorAll(".slide").forEach(slide => {
